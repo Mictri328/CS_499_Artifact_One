@@ -1,0 +1,154 @@
+/*
+Author Michael Tricoli
+Code from  CS-410 Reverse Engineering
+Date July 17 2022
+Version 1.0
+*/
+import java.util.Scanner; //import library for taking input from users
+import java.util.ArrayList; //import library for use of ArrayLists
+import java.util.Arrays; //import library for use of Arrays
+
+
+//Main class for entire code
+public class Converted {
+	
+	//function to handle user name and password access
+private static void UserPermissionsAccess() {
+	
+	//create input scanner
+	@SuppressWarnings("resource")
+	Scanner input = new Scanner(System.in);
+	
+	//create input for user name
+	System.out.println("Enter Username");
+	String inputUsername = input.next();
+	
+	//create input for password
+	System.out.println("Enter password");
+	String inputPassword = input.next();
+	
+	//start count for entering information attempts
+	int count = 0;
+	
+	//count number of attempts in while loop
+	while(count <= 2) {
+		
+		//if statement to compare username and password and apply count of login attempts 
+		if((!inputUsername.equals("admin")) || !inputPassword.equals("password")){
+			System.out.println("Username or Password incorrect, try again enter username");
+			inputUsername = input.next();
+			
+			System.out.println("Enter password");
+	        inputPassword = input.next();
+			
+		}
+		//successful login break loop
+		else {
+			System.out.println("You are now logged in as " + inputUsername);
+			break;
+		}
+		count++;
+	}
+	//check count and end code if attempt limit reached
+	if(count > 1) {
+		System.out.println("You have entered wrong infromation three times. Please try again in a few minutes");
+		System.exit(0);
+	}	
+}
+
+//main function	of class				
+public static void main(String[] args) {
+	
+	System.out.println("Hello! Welcome to our Investment Company");
+	
+	//call login function
+	UserPermissionsAccess();
+
+	//create array of users
+	ArrayList<String> users = new ArrayList<String>(
+            Arrays.asList("Bob Jones","Sara Davis","Amy Friendly","Johnny Smith","Carol Spears"));
+	
+	//create array of current selections
+	 ArrayList<Integer> choices = new ArrayList<Integer>
+		(Arrays.asList(1,1,1,1,1));
+	
+	
+	//initialize scanner for main
+	Scanner input = new Scanner(System.in);
+	
+	//create infinite loop as we have system exit to break loop
+	int menu = 1;
+	while(menu == 1) {
+		
+		//print display menu to console
+		System.out.println("Display The client list (enter 1)");
+		System.out.println("Change a client's choice (enter 2)");
+		System.out.println("Exit (enter 3)");
+		System.out.println("What would you Like to do?");
+		Integer menupick = input.nextInt();
+		
+		// if option 1 is selected display all current users and choices
+		if(menupick == 1) {
+			
+			System.out.println("You chose 1");
+			System.out.println("Client's Name  Service Selected (1 = Brokerage, 2 = Retirement)");
+			 
+			//For loop to run through array to display each user and choice and numbers each users
+			int usernumber = 1;
+			for (int i = 0; i < users.size(); i++) {
+				 System.out.print(usernumber);
+				 System.out.print(" ");
+			      System.out.print(users.get(i));
+			      System.out.print(" ");
+			      System.out.println(choices.get(i));
+			      usernumber++;
+			}
+		}
+		
+		//option 2 for changing a users current selection
+		else if(menupick == 2) {
+			System.out.println("You chose 2");
+			
+			//take input for which client to apply changes to
+			System.out.println("Enter the number of the client that you wish to change");
+			Integer SelectUser = input.nextInt();
+			
+			//take input for which service you want the client to have
+			System.out.println("Please Enter The Clients new Service(1 = Brokerage, 2 = Retirement)");
+			Integer SelectService = input.nextInt();
+			
+			
+			//If statements to check against which user you selected and applies the change depending on the input received
+			if(SelectUser == 1) {	
+				choices.set(0, SelectService);
+			}
+			
+			else if(SelectUser == 2){
+				choices.set(1, SelectService);
+			} 
+			
+			else if(SelectUser == 3){
+				choices.set(2, SelectService);
+			} 
+			
+			else if(SelectUser == 4){
+				choices.set(3, SelectService);
+			} 
+			
+			else if(SelectUser == 5){
+				choices.set(4, SelectService);
+			} 
+						
+		}
+		//exit and quit program to break loop
+		else if(menupick == 3){
+			System.out.println("You chose 3, Goodbye");
+			System.exit(0);
+		}
+		
+	}
+	//close input function
+	input.close();
+}
+	
+}
