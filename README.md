@@ -29,4 +29,5 @@ Michael Tricoli
 
 ## Version History
 
-Version 1.0
+* 0.1
+    * Initial Release
